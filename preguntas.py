@@ -193,7 +193,7 @@ def pregunta_11():
                         values="_c4",
                         index=["_c0"],
                         aggfunc=lambda x: ','.join(str(v) for v in sorted(x)),
-                        )
+                        ).reset_index()
     """
     Construya una tabla que contenga _c0 y una lista separada por ',' de los valores de
     la columna _c4 del archivo `tbl1.tsv`.
@@ -216,7 +216,7 @@ def pregunta_12():
     df = tbl2.copy().astype(str)
     df["_c5"]=df["_c5a"]+":"+df["_c5b"]
     df=df[["_c0","_c5"]]
-    df["_c5"]=df.groupby("_c0",as_index=False)["_c5"].transform(lambda x : ','.join(x))
+    df["_c5"]=df.groupby("_c0",as_index=False)["_c5"].transform(lambda x : ','.join(sorted(x)))
     df = df.drop_duplicates()
     """
     Construya una tabla que contenga _c0 y una lista separada por ',' de los valores de
@@ -253,4 +253,3 @@ def pregunta_13():
     Name: _c5b, dtype: int64
     """
     return df
-print(pregunta_12())
