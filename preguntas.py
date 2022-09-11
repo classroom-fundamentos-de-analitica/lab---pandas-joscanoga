@@ -164,11 +164,11 @@ def pregunta_09():
 def pregunta_10():
 
     df=tbl0.copy()[["_c1","_c2"]].rename(columns={"_c1":"_c0","_c2":"_c1"})
-    #df=tbl0.groupby(["_c1"])["_c2"].transform(lambda x : ':'.join(str(v) for v in x))
-    df=df.pivot_table(
+
+    df=pd.pivot_table(df,
         values="_c1",
         index=["_c0"],
-        aggfunc=lambda x : ':'.join(str(v) for v in x),
+        aggfunc=lambda x : ':'.join(str(v) for v in sorted(x)),
     )
     """
     Construya una tabla que contenga _c1 y una lista separada por ':' de los valores de
