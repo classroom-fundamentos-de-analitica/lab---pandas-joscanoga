@@ -216,7 +216,7 @@ def pregunta_12():
     df = tbl2.copy().astype(str)
     df["_c5"]=df["_c5a"]+":"+df["_c5b"]
     df=df[["_c0","_c5"]]
-    df["_c5"]=df.groupby("_c0")["_c5"].transform(lambda x : ','.join(x))
+    df["_c5"]=df.groupby("_c0",as_index=False)["_c5"].transform(lambda x : ','.join(x))
     df = df.drop_duplicates()
     """
     Construya una tabla que contenga _c0 y una lista separada por ',' de los valores de
@@ -253,3 +253,4 @@ def pregunta_13():
     Name: _c5b, dtype: int64
     """
     return df
+print(pregunta_12())
