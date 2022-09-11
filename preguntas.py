@@ -162,12 +162,14 @@ def pregunta_09():
 
 
 def pregunta_10():
-    aux = pd.DataFrame()
-    aux2=tbl0.groupby("_c1")["_c2"].transform(lambda x : x)
+
     df=tbl0.copy()[["_c1","_c2"]]
-    df= df.groupby(['_c1'])['_c2'].transform(lambda x: x)
-    df = df.drop_duplicates()
-    aux["_c0"]=tbl0["_c1"]
+    #df=tbl0.groupby(["_c1"])["_c2"].transform(lambda x : ':'.join(str(v) for v in x))
+    df=df.pivot_table(
+        values="_c2",
+        index="_c1",
+        aggfunc=lambda x : ':'.join(str(v) for v in x),
+    )
     """
     Construya una tabla que contenga _c1 y una lista separada por ':' de los valores de
     la columna _c2 para el archivo `tbl0.tsv`.
@@ -182,7 +184,7 @@ def pregunta_10():
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
     return df
-
+print(pregunta_10())
 
 def pregunta_11():
     """
