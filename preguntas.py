@@ -163,11 +163,11 @@ def pregunta_09():
 
 def pregunta_10():
 
-    df=tbl0.copy()[["_c1","_c2"]].rename(columns={"_c1":"_c0","_c2":"_c1"})
+    df=tbl0.copy()[["_c1","_c2"]]
 
     df=pd.pivot_table(df,
-        values="_c1",
-        index=["_c0"],
+        values="_c2",
+        index=["_c1"],
         aggfunc=lambda x : ':'.join(str(v) for v in sorted(x)),
     )
     """
