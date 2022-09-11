@@ -184,9 +184,16 @@ def pregunta_10():
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
     return df
-print(pregunta_10())
+
 
 def pregunta_11():
+    df = tbl1.copy()[["_c0", "_c4"]]
+
+    df = pd.pivot_table(df,
+                        values="_c4",
+                        index=["_c0"],
+                        aggfunc=lambda x: ','.join(str(v) for v in sorted(x)),
+                        )
     """
     Construya una tabla que contenga _c0 y una lista separada por ',' de los valores de
     la columna _c4 del archivo `tbl1.tsv`.
@@ -202,10 +209,15 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
-    return
+    return df
 
 
 def pregunta_12():
+    df = tbl2.copy().astype(str)
+    df["_c5"]=df["_c5a"]+":"+df["_c5b"]
+    df=df[["_c0","_c5"]]
+    df["_c5"]=df.groupby("_c0")["_c5"].transform(lambda x : ','.join(x))
+    df = df.drop_duplicates()
     """
     Construya una tabla que contenga _c0 y una lista separada por ',' de los valores de
     la columna _c5a y _c5b (unidos por ':') de la tabla `tbl2.tsv`.
@@ -220,10 +232,13 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
-    return
+    return df
 
 
 def pregunta_13():
+    df=tbl0.copy()
+    df=df.join(tbl2.set_index('_c0'), on='_c0')
+    df=df.groupby(["_c1"]).sum()["_c5b"]
     """
     Si la columna _c0 es la clave en los archivos `tbl0.tsv` y `tbl2.tsv`, compute la
     suma de tbl2._c5b por cada valor en tbl0._c1.
@@ -237,4 +252,4 @@ def pregunta_13():
     E    275
     Name: _c5b, dtype: int64
     """
-    return
+    return df
